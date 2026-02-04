@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Interactive Period Tracker</title>
+
+<style>
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background: #f4f6f8;
+}
+
+/* ===== Header ===== */
+header {
+    background: #e91e63;
+    color: white;
+    padding: 15px;
+    text-align: center;
+}
+
+/* ===== Navigation ===== */
+nav {
+    background: #c2185b;
+    display: flex;
+    justify-content: center;
+}
+
+nav a {
+    color: white;
+    padding: 12px 20px;
+    text-decoration: none;
+}
+
+nav a:hover {
+    background: #ad1457;
+}
+
+/* ===== Main ===== */
+main {
+    padding: 20px;
+}
+
+.card {
+    background: white;
+    padding: 20px;
+    max-width: 500px;
+    margin: auto;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+input, textarea, button {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+}
+
+button {
+    background: #e91e63;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #d81b60;
+}
+
+/* ===== Footer ===== */
+footer {
+    background: #333;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    margin-top: 30px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>Interactive Period Tracker</h1>
+    <p>Track & Predict Your Menstrual Cycle</p>
+</header>
+
+<!-- Navigation (JS ayaa buuxinaya) -->
+<nav id="navbar"></nav>
+
+<main>
+
+<!-- HOME -->
+<section id="home" class="card section">
+    <h2>Welcome 👋</h2>
+    <p>
+        This application helps you track and predict your menstrual cycle
+        and provides useful health tips to support your wellbeing.
+    </p>
+</section>
+
+<!-- TRACKER -->
+<section id="tracker" class="card section" style="display:none;">
+    <h2>Period Tracker</h2>
+
+    <label>Last Period Date:</label>
+    <input type="date" id="lastPeriod">
+
+    <label>Cycle Length (days):</label>
+    <input type="number" id="cycleLength" placeholder="e.g 28">
+
+    <button onclick="calculateNextPeriod()">Predict Next Period</button>
+
+    <h3 id="result"></h3>
+</section>
+
+<!-- HEALTH TIPS -->
+<section id="tips" class="card section" style="display:none;">
+    <h2>Health Tips 💡</h2>
+
+    <ul>
+        <li><strong>Drink Water 💧</strong> – Helps reduce bloating and fatigue.</li>
+        <li><strong>Healthy Food 🥗</strong> – Eat fruits, vegetables & iron-rich meals.</li>
+        <li><strong>Rest Well 😴</strong> – Sleep 7–9 hours to balance hormones.</li>
+        <li><strong>Light Exercise 🚶‍♀️</strong> – Walking & stretching reduce cramps.</li>
+    </ul>
+</section>
+
+<!-- ABOUT -->
+<section id="about" class="card section" style="display:none;">
+    <h2>About This Project</h2>
+
+    <p><strong>Project Name:</strong> Interactive Period Tracker</p>
+    <p><strong>Student Name:</strong> Farhia Ali Abdulle</p>
+    <p><strong>Student ID:</strong> C5240040</p>
+    <p><strong>Class Name:</strong> CM241</p>
+    <p><strong>Phone:</strong> 0617408765</p>
+    <p><strong>Email:</strong> farhiaa473@gmail.com</p>
+
+    <p>
+        This project demonstrates JavaScript skills including DOM manipulation,
+        event handling, and date calculation.
+    </p>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="card section" style="display:none;">
+    <h2>Contact Us 📞</h2>
+
+    <label>Name:</label>
+    <input type="text" placeholder="Your name">
+
+    <label>Email:</label>
+    <input type="email" placeholder="Your email">
+
+    <label>Message:</label>
+    <textarea rows="4" placeholder="Write your message"></textarea>
+
+    <button>Send Message</button>
+</section>
+
+</main>
+
+<footer>
+    <p>© 2026 Interactive Period Tracker | JavaScript Project</p>
+</footer>
+
+<script>
+/* ===== Navigation JS ===== */
+const navItems = [
+    { name: "Home", section: "home" },
+    { name: "Tracker", section: "tracker" },
+    { name: "Health Tips", section: "tips" },
+    { name: "About", section: "about" },
+    { name: "Contact", section: "contact" }
+];
+
+const nav = document.getElementById("navbar");
+
+navItems.forEach(item => {
+    const link = document.createElement("a");
+    link.href = "#";
+    link.textContent = item.name;
+    link.onclick = () => showSection(item.section);
+    nav.appendChild(link);
+});
+
+/* ===== Section Switch ===== */
+function showSection(sectionId) {
+    document.querySelectorAll(".section").forEach(sec => {
+        sec.style.display = "none";
+    });
+    document.getElementById(sectionId).style.display = "block";
+}
+
+/* ===== Period Calculation ===== */
+function calculateNextPeriod() {
+    const lastDate = document.getElementById("lastPeriod").value;
+    const cycle = document.getElementById("cycleLength").value;
+
+    if (lastDate === "" || cycle === "") {
+        alert("Fadlan buuxi dhammaan xogta");
+        return;
+    }
+
+    const date = new Date(lastDate);
+    date.setDate(date.getDate() + parseInt(cycle));
+
+    document.getElementById("result").innerHTML =
+        "Next period: <b>" + date.toDateString() + "</b>";
+}
+</script>
+
+</body>
+</html>
